@@ -1,0 +1,51 @@
+# uniformat-core
+
+The shared foundation of the UniFormat family of file-format readers and writers.
+
+- **Data model:** Apache Arrow (`RecordBatch`, `Schema`). Format-specific metadata travels in the schema under the
+  prefix `<format>.`.
+- **Interfaces:** `Format` (info / read / write), `Registry` (lookup by name or extension), `convert()` (format → Arrow →
+  format).
+- **Building blocks:** `ByteSource` (range reads: file, memory, counting wrapper) and `AtomicFile` (write to a temporary
+  file, rename on commit, nothing left behind on error).
+- **No format inside.** Format crates (`uniformat-sas`, …) depend on this crate, never the reverse.
+
+## Layout
+
+| Path | Content |
+|---|---|
+| `crates/uniformat-core` | Rust crate `uniformat-core` |
+| `python/` | Python distribution `uniformat-core`, import `uniformat_io.core` (PEP 420 namespace, pure Python) |
+
+## Rust
+
+```rust
+use uniformat_core::{Registry, ReadRequest, WriteRequest, convert};
+
+let mut registry = Registry::new();
+// each format crate provides `register(&mut registry)`
+// uniformat_sas_arrow::register(&mut registry);
+convert(&registry, "in.sas7bdat".as_ref(), "out.sas7bdat".as_ref(), None, None,
+        &ReadRequest::default(), &WriteRequest::default())?;
+```
+
+## Python
+
+```python
+import uniformat_io.core as uf
+table = uf.read("data.sas7bdat")                 # needs uniformat-sas installed
+uf.convert("data.sas7bdat", "copy.sas7bdat", write_options={"compression": "char"})
+```
+
+Format distributions register through the `uniformat_io.formats` entry-point group.
+
+## Development
+
+```bash
+cargo test            # Rust
+cd python && pip install -e . pytest && pytest   # Python
+```
+
+Sibling repositories are expected side by side (`../uniformat-sas`, …) because Rust path dependencies point to them.
+
+Status: 0.1, not published. License: `MIT OR Apache-2.0` (provisional).
