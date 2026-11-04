@@ -4,11 +4,11 @@ permissions:
   contents: read
 jobs:
   rust:
-    uses: UniFormat/.github/.github/workflows/rust-ci.yml@18395e416e408923c6edac020e57653e28d4c202
+    uses: UniFormat/.github/.github/workflows/rust-ci.yml@d3d2936bdfedc251a7099d73c9496dbdb33c9dc2
     with:
       repo: uniformat-core
   python:
-    uses: UniFormat/.github/.github/workflows/python-ci.yml@18395e416e408923c6edac020e57653e28d4c202
+    uses: UniFormat/.github/.github/workflows/python-ci.yml@d3d2936bdfedc251a7099d73c9496dbdb33c9dc2
     with:
       repo: uniformat-core
       project-dir: python
