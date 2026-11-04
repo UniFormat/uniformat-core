@@ -56,6 +56,14 @@ def test_explicit_format_overrides_extension():
 
 
 def test_core_does_not_import_any_format():
+    import subprocess
     import sys
 
-    assert not [m for m in sys.modules if m.startswith("uniformat_io.") and m != "uniformat_io.core"]
+    # Earlier registry tests may legitimately discover an installed format plugin.
+    # Check the import boundary in a fresh process, independent of test order.
+    result = subprocess.run(
+        [sys.executable, "-c", "import sys; import uniformat_io.core; "
+         "assert not [m for m in sys.modules if m.startswith('uniformat_io.') and m != 'uniformat_io.core']"],
+        capture_output=True, text=True, check=False,
+    )
+    assert result.returncode == 0, result.stderr
