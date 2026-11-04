@@ -1,0 +1,9 @@
+# CI/build/test tools: resolve with uv pip compile --universal --python-version 3.12 --generate-hashes.
+pyarrow>=23.0.1
+pandas>=2
+polars>=1
+hatchling>=1.24
+maturin>=1.7,<2
+pytest
+build
+pip-audit

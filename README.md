@@ -49,3 +49,9 @@ cd python && pip install -e . pytest && pytest   # Python
 Sibling repositories are expected side by side (`../uniformat-sas`, …) because Rust path dependencies point to them.
 
 Status: 0.1, not published. License: `MIT OR Apache-2.0` (provisional).
+
+## Security and reproducible checks
+
+Atomic writes create private temporary files in the destination directory. On Unix, new files use mode 0600 and replacing a regular file preserves its ordinary permission bits. Symlink destinations are refused. Ownership, special mode bits and extended ACLs are not copied; use a trusted destination directory with an appropriate access policy.
+
+The workspace lockfile is tracked so CI audits the same Rust resolution as the tests. Run `cargo test --locked` and `cargo deny --locked --all-features check advisories`. The tests include permission preservation and cleanup on failure. Python CI installs `ci/requirements-python.txt` with hashes and runs pip-audit. Regenerate that lock from its `.in` file with the command recorded in its header, then audit and test the new resolution.

@@ -1,14 +1,14 @@
 name: ci
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   rust:
-    uses: UniFormat/.github/.github/workflows/rust-ci.yml@main
+    uses: UniFormat/.github/.github/workflows/rust-ci.yml@18395e416e408923c6edac020e57653e28d4c202
     with:
       repo: uniformat-core
-    secrets: inherit
   python:
-    uses: UniFormat/.github/.github/workflows/python-ci.yml@main
+    uses: UniFormat/.github/.github/workflows/python-ci.yml@18395e416e408923c6edac020e57653e28d4c202
     with:
       repo: uniformat-core
       project-dir: python
-    secrets: inherit
