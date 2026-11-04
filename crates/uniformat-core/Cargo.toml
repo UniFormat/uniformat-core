@@ -1,0 +1,19 @@
+[package]
+name = "uniformat-core"
+description = "Common data model (Apache Arrow), Reader/Writer interfaces, format registry, byte sources and error types for the UniFormat family"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+keywords = ["arrow", "file-format", "reader", "writer"]
+categories = ["parser-implementations", "encoding"]
+
+[dependencies]
+arrow-array = "59.2"
+arrow-schema = "59.2"
+thiserror = "2"
+
+[lints]
+workspace = true
