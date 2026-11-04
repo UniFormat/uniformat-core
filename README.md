@@ -48,7 +48,7 @@ cd python && pip install -e . pytest && pytest   # Python
 
 Sibling repositories are expected side by side (`../uniformat-sas`, …) because Rust path dependencies point to them.
 
-Status: 0.1, not published. License: `MIT OR Apache-2.0` (provisional).
+Status: 0.1, public source; packages not yet published to registries. License: `MIT OR Apache-2.0` (provisional).
 
 ## Security and reproducible checks
 
