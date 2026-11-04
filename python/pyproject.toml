@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "uniformat-core"
+version = "0.1.0"
+description = "Common data model (Apache Arrow), format registry and conversion API for the UniFormat family"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT OR Apache-2.0"
+license-files = ["LICENSE-MIT", "LICENSE-APACHE"]
+dependencies = ["pyarrow>=15"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Private :: Do Not Upload",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.hatch.build.targets.wheel]
+# `uniformat_io` is a PEP 420 namespace package (no __init__.py) shared with the format distributions.
+packages = ["src/uniformat_io"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
